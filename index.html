@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wastewater Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="screen1" class="screen">
+        <div class="cart">
+            <p>Wastewater Calculator</p>
+            <button id="btn">Let's Get Started</button>
+        </div>
+    </div>
+
+    <div id="screen2">
+      <div class="box" id="paramOption">
+        <h2>Waste Water Quality Parameters</h2>
+      </div>
+      <div class="box" id="organicsOption">
+        <h2>Organics Calculation (TSS, TDS, TS, TVS, TFS)</h2>
+      </div>
+      <div class="box" id="doOption">
+          <h2>DO Calculation</h2>
+        </div>
+        <div class="box" id="bodOption">
+          <h2>BOD Calculation</h2>
+        </div>
+        <div class="box" id="codOption">
+          <h2>COD Calculation</h2>
+        </div>
+        <div class="box" id="kineticsOption">
+          <h2>Growth and Death Kinetics</h2>
+        </div>
+        <div class="box" id="tricklingOption">
+          <h2>Trickling Filter</h2>
+        </div>
+        <div class="box" id="rbcOption">
+          <h2>Rotating Biological Contactor</h2>
+        </div>
+    </div>
+<!-- bod calculations -->
+    <div id="bodCalcScreen">
+        <div class="bod-calculator">
+                  <h1>BOD Calculator</h1>
+                  <label for="numSamples">Number of Samples:</label>
+                  <input type="number" id="numSamples" min="1" required>
+                  <button id="generateBODFields">Generate BOD Fields</button>
+            
+                  <form id="bodForm" style="display: none;">
+                    <div id="bodSampleFields"></div>
+                    <label for="bodVolume">Sample Volume (mL):</label>
+                    <input type="number" id="bodVolume" required>
+                    <label for="bodDilution">Dilution Factor (Bottle Volume in mL):</label>
+                    <input type="number" id="bodDilution" required>
+                    <button type="submit">Calculate Average BOD</button>
+                  </form>
+                  <div id="bodResult"></div>
+                  <button id="bodReturnBtn">Return to Main Menu</button>
+             </div>
+        </div>
+    
+        
+         <!-- Organics calculations screen -->
+        <div id="organicsCalcScreen" class="screen">
+        <div class="organics-calculator">
+        <h1>Organic Solids Calculator</h1>
+        <label for="initialWeight">Weight of Empty Crucible (g):</label>
+        <input type="number" id="initialWeight" placeholder="Initial weight (g)" required><br>
+    
+        <label for="weightBeforeDrying">Weight of Crucible + Sample Before Drying (g):</label>
+        <input type="number" id="weightBeforeDrying" placeholder="Weight before drying (g)" required><br>
+    
+        <label for="weightAfterDrying">Weight of Crucible + Sample After Drying (g):</label>
+        <input type="number" id="weightAfterDrying" placeholder="Weight after drying (g)" required><br>
+    
+        <label for="weightAfterIgnition">Weight of Crucible + Sample After Ignition (g):</label>
+        <input type="number" id="weightAfterIgnition" placeholder="Weight after ignition (g)" required><br>
+    
+        <label for="sampleVolume">Sample Volume (mL):</label>
+        <input type="number" id="sampleVolume" placeholder="Sample volume (mL)" required><br>
+    
+        <button id="calculateOrganics">Calculate Organics</button>
+        <div id="organicsResult"></div>
+        <button id="organicsReturnBtn">Return to Main Menu</button>
+    </div>
+</div>
+
+<!-- COD calculations screen -->
+<div id="codCalcScreen" class="screen">
+  <div class="cod-calculator">
+    <h1>COD Calculator</h1>
+    <label for="volume">Sample Volume (mL):</label>
+    <input type="number" id="volume" required><br>
+    <label for="normality">Normality of FAS:</label>
+    <input type="number" id="normality" step="0.01" required><br>
+    <label for="a">Volume of FAS Added to Blank (mL):</label>
+    <input type="number" id="a" required><br>
+    <label for="b">Volume of FAS Added to Sample (mL):</label>
+    <input type="number" id="b" required><br>
+    <button id="calculateCOD">Calculate COD</button>
+    <div id="codResult"></div>
+    <button id="codReturnBtn">Return to Main Menu</button>
+  </div>
+</div>
+  
+<!-- DO Screen-->
+
+<div id="doCalcScreen" class="screen">
+    <div class="do-calculator">
+      <h1>DO-Calculator</h1>
+        <label for="sampleVolume">Volume of Sample (mL):</label>
+        <input type="number" id="sampleVolume" required><br>
+    
+        <label for="titrantVolume">Volume of Titrant Used (mL):</label>
+        <input type="number" id="titrantVolume"  required><br>
+    
+        <label for="titrantNormality">Normality of Titrant (N):</label>
+        <input type="number" id="titrantNormality" required><br>
+    
+        <button id="calculateDO">Calculate DO</button>
+    
+    <div id="doResult"></div>
+    <button id="doReturnBtn">Return to Main Menu</button>
+    </div>
+</div>
+
+
+<!--Waste Water Parameters-->
+<div id="paramCalcScreen" class="screen" >
+  <div class="param-calculator">
+    <h1>Is Your Water Fit to Consume</h1>
+    <label for="ph">pH:</label>
+    <input type="number" id="ph" placeholder="Enter pH" required><br>
+    <label for="temperature">Temperature (°C):</label>
+    <input type="number" id="temperature" placeholder="Enter Temperature" required><br>
+    <label for="alkalinity">Alkalinity (mg/L):</label>
+    <input type="number" id="alkalinity" placeholder="Enter Alkalinity" required><br>
+    <label for="tds">TDS (mg/L):</label>
+    <input type="number" id="tds" placeholder="Enter TDS" required><br>
+    <button id="checkParams">Check it Yourself</button>
+    
+    <div id="paramResult"></div>
+    <button id="paramReturnBtn">Return to Main Menu</button>
+  </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>

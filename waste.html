@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wastewater Engineering Calculator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .screen {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #screen1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .cart {
+      text-align: center;
+    }
+    
+    .cart p {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #343a40;
+      margin-bottom: 2rem;
+    }
+    
+    #btn {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    #btn:hover {
+      background-color: #218838;
+    }
+    
+    #screen2 {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+    
+    .box {
+      flex: 1 1 22%;
+      max-width: 22%;
+      margin: 1rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    
+    .box:hover {
+      transform: translateY(-10px);
+      background-color: #28a745;
+      color: white;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    
+    @media (max-width: 768px) {
+      .box {
+        flex: 1 1 45%;
+        max-width: 45%;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .box {
+        flex: 1 1 90%;
+        max-width: 90%;
+      }
+    
+      .cart p {
+        font-size: 2rem;
+      }
+    
+      #btn {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="screen1" class="screen">
+      <div class="cart">
+        <p>Welcome to the Wastewater Calculator</p>
+        <button id="btn">Start Calculating</button>
+      </div>
+    </div>
+    
+    <div id="screen2" class="screen">
+      <div class="box">
+        <h2>Flow Rate Calculation</h2>
+      </div>
+      <div class="box">
+        <h2>Chemical Dosage</h2>
+      </div>
+      <div class="box">
+        <h2>Hydraulic Load</h2>
+      </div>
+      <div class="box">
+        <h2>Effluent Quality</h2>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('btn');
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+
+    btn.addEventListener('click', () => {
+      screen1.style.display = 'none';
+      screen2.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
