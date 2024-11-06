@@ -6,6 +6,8 @@ let organicsCalcScreen=document.querySelector("#organicsCalcScreen");
 let codCalcScreen=document.querySelector("#codCalcScreen");
 let doCalcScreen=document.querySelector("#doCalcScreen");
 let paramCalcScreen=document.querySelector("#paramCalcScreen");
+let rbcCalcScreen = document.querySelector("#rbcCalcScreen");
+rbcCalcScreen.style.display = "none";
 screen2.style.display = "none";
 bodCalcScreen.style.display = "none";
 organicsCalcScreen.style.display = "none";
@@ -15,6 +17,68 @@ paramCalcScreen.style.display="none";
 button.addEventListener("click", () => {
   screen1.style.display = "none";
   screen2.style.display = "flex";
+});
+
+
+document.getElementById('rbcOption').addEventListener('click', () => {
+  screen1.style.display = "none";
+  screen2.style.display = "none";
+  rbcCalcScreen.style.display = "flex";
+
+  document.getElementById('rbcButton').addEventListener('click',function(event){
+    const data = {
+      SBOD: document.getElementById('SBOD').value,
+      flowrate: document.getElementById('flowrate').value,
+      primaryEffluent: document.getElementById('primaryEffluent').value,
+      secondEffluent: document.getElementById('secondEffluent').value,
+      numTrains: document.getElementById('numTrains').value,
+      numStages: document.getElementById('numStages').value,
+      BODprim: document.getElementById('BODprim').value
+  
+  };
+  // console.log(data);
+  let sbodLoading = data.primaryEffluent*data.flowrate;
+  let diskArea = sbodLoading/data.SBOD;
+  let shaftArea = 9300;
+  let numShaftsDec = diskArea/shaftArea;
+  let numShaftsFull = Math.ceil(numShaftsDec);
+  let Q = data.flowrate/data.numTrains;
+  console.log(numShaftsDec);
+  console.log("Taking: "+ numShaftsFull);
+  
+  var S0 = primaryEffluent;
+  var sList = [];
+  sList.push(S0);
+  while(S0>data.secondEffluent){
+    S0 = -1 + Math.sqrt(1+0.03896*(diskArea/Q)*S0);
+    S0 = S0/(0.01948 * (shaftArea/Q));
+    sList.push(S0);
+  }
+  var stageNeeded = sList.length - 1;
+  console.log(stageNeeded);
+  var firstStageOrgLoading = data.flowrate * data.primaryEffluent;
+  firstStageOrgLoading  = firstStageOrgLoading/(shaftArea * stageNeeded);
+
+  var ovrOrganicLoading = data.flowrate * data.BODprim;
+  ovrOrganicLoading = ovrOrganicLoading/(stageNeeded * numShaftsFull *shaftArea);
+
+  var HLR = data.flowrate/(stageNeeded * numShaftsFull * shaftArea);
+
+  document.getElementById('rbcResult').innerHTML =`
+    <div>
+      <h3> Results </h3>
+      <label for="numShaft">num Shaft: ${numShaftsDec} -> ${numShaftsFull}</label><br>
+      <label for="num Stages">num stages: ${stageNeeded}</label><br>
+      <label for="firstOrgLoading"> First Stage organic loading: ${firstStageOrgLoading} </label><br>
+      <label for="ovrOrgLoading"> overall organic loading: ${ovrOrganicLoading} </label> <br>
+      <label for="hydraulicLoading"> overall organic loading: ${HLR}</label><br> 
+      </div>
+  `
+  })
+  document.getElementById('rbcReturnBtn').addEventListener('click', () => {
+    rbcCalcScreen.style.display = "none";
+    screen2.style.display = "flex";
+  });
 });
 
 
@@ -241,3 +305,5 @@ document.querySelector("#paramOption").addEventListener("click",()=>{
     screen2.style.display = "flex";
   });
 })
+
+

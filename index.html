@@ -146,6 +146,38 @@
     <button id="paramReturnBtn">Return to Main Menu</button>
   </div>
 </div>
+
+<div id="rbcCalcScreen" class="screen" >
+  <div class="rbc-calculator">
+      <label for="SBOD">1st Stage SBOD assumption</label>
+      <input type="number" id="SBOD" placeholder="enter here" required><br>
+      
+      <label for="flowrate">Flowrate</label>
+      <input type="number" id="flowrate" placeholder="enter here" required><br>
+
+      <label for="primaryEffluent">SBOD loading Primary Effluent</label>
+      <input type="number" id="primaryEffluent" placeholder="enter here" required><br>
+
+      <label for="secondaryEffluent">SBOD loading Second Effluent</label>
+      <input type="number" id="secondEffluent" placeholder="enter here" required><br>
+
+      <label for="Trains">Number of trains</label>
+      <input type="number" id="numTrains" placeholder="enter here" required><br>
+
+      <label for="Stages">Number of Stages</label>
+      <input type="number" id="numStages" placeholder="enter here" required><br>
+
+      <label for="BODEffluent">BOD loading primary effluent</label>
+      <input type="number" id="BODprim" placeholder="enter here" required><br>
+      
+      <button id="rbcButton">Calculate</button>
+
+      <div id="rbcResult"></div>
+    <button id="rbcReturnBtn">Return to Main Menu</button>
+  </div>
+  </div>
+</div>
+
   <script src="script.js"></script>
 </body>
 </html>
