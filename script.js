@@ -46,14 +46,14 @@ document.getElementById('rbcOption').addEventListener('click', () => {
   console.log(numShaftsDec);
   console.log("Taking: "+ numShaftsFull);
   
-  var S0 = primaryEffluent;
+  var S0 = data.primaryEffluent;
   var sList = [];
   sList.push(S0);
   while(S0>data.secondEffluent){
-    S0 = -1 + Math.sqrt(1+0.03896*(diskArea/Q)*S0);
-    S0 = S0/(0.01948 * (shaftArea/Q));
+    S0 = (-1 + Math.sqrt(1+0.03896*(shaftArea/Q)*S0))/(0.01948 * (shaftArea/Q));
     sList.push(S0);
   }
+  console.log(sList);
   var stageNeeded = sList.length - 1;
   console.log(stageNeeded);
   var firstStageOrgLoading = data.flowrate * data.primaryEffluent;
@@ -72,6 +72,10 @@ document.getElementById('rbcOption').addEventListener('click', () => {
       <label for="firstOrgLoading"> First Stage organic loading: ${firstStageOrgLoading} </label><br>
       <label for="ovrOrgLoading"> overall organic loading: ${ovrOrganicLoading} </label> <br>
       <label for="hydraulicLoading"> overall organic loading: ${HLR}</label><br> 
+      <label for="iterations">
+        Iterative values<br>
+        ${sList.map(ele=>ele+" ")};
+      </label>
       </div>
   `
   })
