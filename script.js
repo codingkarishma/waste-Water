@@ -335,21 +335,21 @@ document.querySelector("#tricklingOption").addEventListener("click",()=>{
 
   document.querySelector("#calculateTrickle").addEventListener("click",()=>{
 
-        const flowrate = Number(document.querySelector('#flowrate').value);
+        const flow =parseFloat(document.querySelector('#flow').value);
         const bod = parseFloat(document.getElementById('bod').value);
         const tkn = parseFloat(document.getElementById('tkn').value);
         const diameter = parseFloat(document.getElementById('diameter').value);
         const length = parseFloat(document.getElementById('length').value);
         const specificSurfaceArea = parseFloat(document.getElementById('specificSurfaceArea').value);
-console.log(flowrate,bod,tkn,diameter,length,specificSurfaceArea);
+console.log(flow,bod,tkn,diameter,length,specificSurfaceArea);
     const area = 3.14 *  (diameter*diameter)/ 4;  // Area of the trickling filter
     const volume = area * length;  // Volume of the trickling filter
   
     // Calculate BOD Loading Rate (kg/m³d)
-    const bodLoadingRate = (flowrate * bod) / volume;
+    const bodLoadingRate = (flow * bod) / volume;
   
     // Calculate TKN Loading (kg/m³d)
-    const tknLoading = (flowrate * tkn) / volume;
+    const tknLoading = (flow * tkn) / volume;
     const specificTknLoading = tknLoading / (specificSurfaceArea * volume);
     const resultDiv = document.getElementById('trickleResult');
      
