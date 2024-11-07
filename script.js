@@ -8,6 +8,8 @@ let doCalcScreen=document.querySelector("#doCalcScreen");
 let paramCalcScreen=document.querySelector("#paramCalcScreen");
 let rbcCalcScreen = document.querySelector("#rbcCalcScreen");
 rbcCalcScreen.style.display = "none";
+let tricklingCalcScreen=document.querySelector("#tricklingCalcScreen");
+tricklingCalcScreen.style.display="none";
 screen2.style.display = "none";
 bodCalcScreen.style.display = "none";
 organicsCalcScreen.style.display = "none";
@@ -240,25 +242,32 @@ console.log(document.querySelector("#calculateCOD"));
 });
 
 // DO Calculations
-console.log(document.querySelector("#calculateDO"))
 document.getElementById('doOption').addEventListener('click', () => {
   screen1.style.display = "none";
   screen2.style.display = "none";
   doCalcScreen.style.display = "flex";
-
+  let volumeOfSample,volumeOfTitrant,normality;
+  let doSampleVolume=document.querySelector("#doSampleVolume");
+  console.log(doSampleVolume);
+  doSampleVolume.addEventListener("change",(e)=>{
+     volumeOfSample=Number(e.target.value);
+    console.log(volumeOfSample);
+  })
+  let titrantVolume=document.querySelector("#titrantVolume");
+  titrantVolume.addEventListener("change",(e)=>{
+     volumeOfTitrant=Number(e.target.value);
+    console.log(volumeOfTitrant);
+  })
+  let titrantNormality=document.querySelector("#titrantNormality");
+  titrantNormality.addEventListener("change",(e)=>{
+    normality=Number(e.target.value);
+    console.log(normality);
+  })
   document.getElementById('calculateDO').addEventListener('click', function () {
-    const sampleVolume = Number(document.getElementById('sampleVolume').value);
-    const titrantVolume = Number(document.getElementById('titrantVolume').value);
-    const titrantNormality =Number(document.getElementById('titrantNormality').value);
-
-    if (isNaN(sampleVolume) || isNaN(titrantVolume) || isNaN(titrantNormality)) {
-      alert("Please fill in all fields with valid numbers.");
-      return;
-    }
-   console.log(sampleVolume);
-   console.log(titrantNormality);
-   console.log(titrantVolume);
-    const doConcentration = (titrantVolume * titrantNormality * 8000) / sampleVolume; // DO in mg/L
+   console.log(volumeOfSample);
+   console.log(volumeOfTitrant);
+   console.log(normality);
+    const doConcentration = (normality * volumeOfTitrant * 8000) / volumeOfSample; // DO in mg/L
 
     document.getElementById('doResult').innerHTML = `DO: ${doConcentration.toFixed(2)} mg/L`;
   }); 
@@ -279,13 +288,16 @@ document.querySelector("#paramOption").addEventListener("click",()=>{
     const temperature = parseFloat(document.getElementById('temperature').value);
     const alkalinity = parseFloat(document.getElementById('alkalinity').value);
     const tds = parseFloat(document.getElementById('tds').value);
-    let result = "Unfit"; // Default to unfit if conditions don't match
+    //let result = "Unfit"; // Default to unfit if conditions don't match
     
+    if(isNaN(ph) || isNaN(temperature) || isNaN(alkalinity) || isNaN(tds)){
+      alert("Please enter valid numbers");
+    }
     // Define optimum ranges
     const isPhValid = ph >= 6.5 && ph <= 8.5;
     const isTempValid = temperature >= 10 && temperature <= 20;
     const isAlkalinityValid = alkalinity >= 20 && alkalinity <= 200;
-    const isTdsValid = tds >= 300 && tds <= 500;
+    const isTdsValid = tds >= 300 && tds <= 600;
 
     // Check if all parameters are within the optimal range
     if (isPhValid && isTempValid && isAlkalinityValid && isTdsValid) {
@@ -296,13 +308,16 @@ document.querySelector("#paramOption").addEventListener("click",()=>{
       (ph < 6.5 || ph > 8.5) ||
       (temperature < 10 || temperature > 20) ||
       (alkalinity < 20 || alkalinity > 200) ||
-      (tds < 300 || tds > 700)
+      (tds > 600 || tds < 900)
     ) {
       result = "Moderate"; // If some parameters are within limits
+    }else{
+      result="Unfit";
     }
 
     // Display the result
     document.getElementById('paramResult').textContent = `Water quality: ${result}`;
+   
   })
   document.getElementById('paramReturnBtn').addEventListener("click", () => {
     paramCalcScreen.style.display = "none";
@@ -310,4 +325,43 @@ document.querySelector("#paramOption").addEventListener("click",()=>{
   });
 })
 
+//trickling
 
+document.querySelector("#tricklingOption").addEventListener("click",()=>{
+  screen1.style.display = "none";
+  screen2.style.display = "none";
+  tricklingCalcScreen.style.display = "flex";
+
+
+  document.querySelector("#calculateTrickle").addEventListener("click",()=>{
+
+        const flowrate = Number(document.querySelector('#flowrate').value);
+        const bod = parseFloat(document.getElementById('bod').value);
+        const tkn = parseFloat(document.getElementById('tkn').value);
+        const diameter = parseFloat(document.getElementById('diameter').value);
+        const length = parseFloat(document.getElementById('length').value);
+        const specificSurfaceArea = parseFloat(document.getElementById('specificSurfaceArea').value);
+console.log(flowrate,bod,tkn,diameter,length,specificSurfaceArea);
+    const area = 3.14 *  (diameter*diameter)/ 4;  // Area of the trickling filter
+    const volume = area * length;  // Volume of the trickling filter
+  
+    // Calculate BOD Loading Rate (kg/m³d)
+    const bodLoadingRate = (flowrate * bod) / volume;
+  
+    // Calculate TKN Loading (kg/m³d)
+    const tknLoading = (flowrate * tkn) / volume;
+    const specificTknLoading = tknLoading / (specificSurfaceArea * volume);
+    const resultDiv = document.getElementById('trickleResult');
+     
+    console.log(bodLoadingRate,tknLoading,specificTknLoading);
+      resultDiv.innerHTML = `
+      <strong>Results:</strong><br>
+      BOD Loading Rate: ${bodLoadingRate.toFixed(4)} kg/m³d<br>
+      TKN Loading Rate: ${tknLoading.toFixed(4)} kg/m³d<br>
+      Specific TKN Loading: ${specificTknLoading.toFixed(4)} kgTKN/m²d<br>`;
+  })
+        document.getElementById('trickleReturnBtn').addEventListener("click", () => {
+          tricklingCalcScreen.style.display = "none";
+          screen2.style.display = "flex";
+        });
+ })

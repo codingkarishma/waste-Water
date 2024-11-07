@@ -31,9 +31,6 @@
         <div class="box" id="codOption">
           <h2>COD Calculation</h2>
         </div>
-        <div class="box" id="kineticsOption">
-          <h2>Growth and Death Kinetics</h2>
-        </div>
         <div class="box" id="tricklingOption">
           <h2>Trickling Filter</h2>
         </div>
@@ -109,22 +106,22 @@
 <!-- DO Screen-->
 
 <div id="doCalcScreen" class="screen">
-    <div class="do-calculator">
-      <h1>DO-Calculator</h1>
-        <label for="sampleVolume">Volume of Sample (mL):</label>
-        <input type="number" id="sampleVolume" required><br>
-    
-        <label for="titrantVolume">Volume of Titrant Used (mL):</label>
-        <input type="number" id="titrantVolume"  required><br>
-    
-        <label for="titrantNormality">Normality of Titrant (N):</label>
-        <input type="number" id="titrantNormality" required><br>
-    
-        <button id="calculateDO">Calculate DO</button>
-    
-    <div id="doResult"></div>
-    <button id="doReturnBtn">Return to Main Menu</button>
-    </div>
+  <div class="do-calculator">
+    <h1>DO-Calculator</h1>
+      <label for="doSampleVolume">Volume of Sample (mL):</label>
+      <input type="number" id="doSampleVolume" required><br>
+  
+      <label for="titrantVolume">Volume of Titrant Used (mL):</label>
+      <input type="number" id="titrantVolume"  required><br>
+  
+      <label for="titrantNormality">Normality of Titrant (N):</label>
+      <input type="number" id="titrantNormality" required><br>
+  
+      <button id="calculateDO">Calculate DO</button>
+  
+  <div id="doResult" class="res"></div>
+  <button id="doReturnBtn">Return to Main Menu</button>
+  </div>
 </div>
 
 
@@ -176,6 +173,31 @@
     <button id="rbcReturnBtn">Return to Main Menu</button>
   </div>
   </div>
+
+  <!--Trickling Filter-->
+  <div id="tricklingCalcScreen" >
+    <div class="trickle-calculator">
+      <h1>Trickling Filter</h1>
+      <label for="flowrate">Flow Rate(Q):</label>
+      <input type="number" id="flowrate" required><br>
+      <label for="bod">BOD Concentration(BOD in g/m³):</label>
+      <input type="number" id="bod" required><br>
+      <label for="tkn">TKN Concentration (TKN in g/m³):</label>
+      <input type="number" id="tkn" required><br>
+      <label for="diameter">Diameter of Trickling Filter (d in meters):</label>
+      <input type="number" id="diameter" required><br>
+      <label for="length">Length of Trickling Filter (L in meters):</label>
+      <input type="number" id="length"  required><br>
+      <label for="specificSurfaceArea">Specific Surface Area (m²/m³):</label>
+      <input type="number" id="specificSurfaceArea" required><br>
+  
+      <button id="calculateTrickle">Calculate</button>
+      
+      <div id="trickleResult" class="res"></div>
+      <button id="trickleReturnBtn">Return to Main Menu</button>
+    </div>
+  </div>
+
 </div>
 
   <script src="script.js"></script>
