@@ -332,6 +332,12 @@ document.querySelector("#tricklingOption").addEventListener("click",()=>{
   screen2.style.display = "none";
   tricklingCalcScreen.style.display = "flex";
 
+let rate=document.querySelector("#flow");
+let bOD=document.querySelector("#bod");
+let tKN=document.querySelector("#tkn");
+let diaa=document.querySelector("#diameter");
+let len=document.querySelector("#length");
+let spSurface=document.querySelector("#specificSurfaceArea");
 
   document.querySelector("#calculateTrickle").addEventListener("click",()=>{
 
@@ -363,5 +369,12 @@ console.log(flow,bod,tkn,diameter,length,specificSurfaceArea);
         document.getElementById('trickleReturnBtn').addEventListener("click", () => {
           tricklingCalcScreen.style.display = "none";
           screen2.style.display = "flex";
+          rate.value="";
+          bOD.value="";
+          tKN.value="";
+          diaa.value="";
+          len.value="";
+          spSurface.value="";
+
         });
  })
